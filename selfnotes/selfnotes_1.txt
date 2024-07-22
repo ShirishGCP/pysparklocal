@@ -1,0 +1,1015 @@
+Pyspark
+
+Installation
+
+java python pysprk winutil pycharm
+
+python - ssys.argvs
+
+
+
+a. pycharm - python + pyspark integration
+
+    select python interpretator
+
+    add context as folder within spark where python is installef
+
+    add context aa folder where py4j is installed
+
+————————-
+
+HDFS
+
+a. storage hdfs
+
+b. processing map reduce
+
+c. horizontal scaling
+
+d. security
+
+e. replication
+
+f. blocksize
+
+g. rack awareness
+
+h. Name node
+
+i. Data node
+
+j. secondary name node
+
+h. editlog and fsck image
+
+I. command
+
+     hdfs fs
+
+     ls 
+
+     get 
+
+     put
+
+     rmdir rm -r rm -rf
+
+     mkdir -p -f <path>
+
+     stats
+
+     fsck
+
+     chown
+
+     df du 
+
+   
+
+—————————
+
+python
+
+id(x) address of variable
+
+x == y
+
+x is y
+
+
+
+readline file into python list
+
+lst = open(file.csv).read().splitlines()
+
+
+
+dir(str)
+
+help(str)
+
+dir(__builtins__)
+
+
+
+splitlines()
+
+ sorted(list, function)
+
+id to get memory address
+
+
+
+lambda
+
+map
+
+filter 
+
+func_tools.reduce
+
+os.path.exists
+
+os.environ
+
+
+
+traeback
+
+traceback
+
+tr.print_exc
+
+sys.exc_info
+
+    
+
+
+
+logging
+
+logging.basicConfig(level=logging.DEBUG,filename=‘test.log’, filemode=‘a’,
+
+format=‘%(asctime)s - %(name)s - %(levelname)s -%(message)s )’
+
+logging.error(‘error occured’ , exc_info=True)
+
+
+
+custom logger for production
+
+import logger
+
+logger = logger.get_logger(__name__)
+
+f_handler=logger.FileHandler(‘filename’,’a’)
+
+f_handler.setLevel(logging.DEBUG)
+
+formatter=logging.Formatter(same as above)
+
+f_handler.setFormatter(formatter)
+
+logger.SetHandler(f_handler)
+
+logger.error(‘thisnis error’)
+
+
+
+
+
+logging via config filenin production
+
+——————-
+
+Spark
+
+In memory processing
+
+support multiple language
+
+single language to solve multiple problem
+
+—
+
+apache core on top of it
+
+spark sql ( sql + dataframe) spark streaming spark ml spark graphx
+
+spark run on yarn mesos kubernetes ec2 ,standalone
+
+—
+
+prior 2.0
+
+sql context hive context 
+
+sparksession only one entry point it create spark object spark.sparkContext()
+
+—
+
+ spark2-submit basic.py
+
+parameter to be reffered in ppt
+
+spark.conf.get()
+
+pyspark —help
+
+
+
+—-
+
+RDD - resilient distributed dataset
+
+receipe - partition - task
+
+spark.sparkContext.textfile()
+
+rdd.take()
+
+rdd.collect
+
+rdd.getNumPartition()
+
+rdd.glom().map(len).collect()
+
+
+
+spark.spatkContext.parallelize(list)
+
+
+
+df = spark.createDataframe(schema data)
+
+df.printSchema()
+
+df.to_rdd
+
+
+
+shuffle and combiner
+
+rdd explain plan toDebugString()
+
+print(rdd.toDebugString())
+
+
+
+RDD-
+
+—
+
+Transformation
+
+map
+
+flatmap
+
+filter
+
+mapvalues - paird rdd
+
+
+
+join
+
+leftOuterjoin
+
+rightOuterjoin
+
+fullOuterjoin
+
+cartesian
+
+cogroup
+
+
+
+reduceByKey - shuffle + combiner output type same as input type
+
+countByKey  - noshuffle and it return output in dictionary format
+
+aggregateByKey - shuffle + combiner same as reduce by key however output type can be different from inout
+
+groupByKey - shuffle
+
+
+
+sorting
+
+sortByKey
+
+Ranking
+
+
+
+Action 
+
+reduce - sum or max or min of all value reduce( lambda x,y : x+y )
+
+count - total count
+
+
+
+
+
+Transformation
+
+Sorting
+
+Global ranking sortByKey take or takeOrdered
+
+group ranking
+
+sortbykey with flatmap and sorted python function
+
+
+
+Set
+
+union - we need to use distinct to get distinct
+
+intersection - it is distinct
+
+Intersection 
+
+distinct
+
+substract
+
+
+
+Sample
+
+sample(withReplacement, fraction, seed)
+
+
+
+Action
+
+takeSample(withReplacement, num, seed)
+
+
+
+
+
+repartition
+
+repartitonAndSortWithinPartitions
+
+coalesce 
+
+
+
+Rdd extraction
+
+sc.textFile
+
+sc.sequenceFile
+
+saveAsTextFile
+
+saveAsSequenceFile
+
+
+
+Spark Architecture
+
+——
+
+
+
+a. client machine send job 
+
+to driver manager create spark context
+
+b. driver manager convert job into dag and these are converted into task and talk with resource manager.
+
+c. Resource manager consisting of application manager and schedular.
+
+d. Application manager find node manager which initiates application master.
+
+e. application master negotiates more resources with resource manager & initiates more nodemanager and execute run on node and once nob completes data is send to driver manager and once completed application master degister itself
+
+
+
+Narrow and wide transformation it has to do with no of partitions  narrow 1-1 wide 1-many many to less
+
+
+
+DAG logical execution plan physical execution plan stages - task 
+
+toDebugString()
+
+
+
+RDD persistance
+
+rdd.is_persist()
+
+rdd.persist(setStorageLevel()
+
+rdd.persist().getStorageLevel()
+
+rdd.unpersist()
+
+
+
+Broadcast variables - constant values enum accross node
+
+bdlist=[1,2,3]
+
+bdvar=spark.sparkContext.broadcast(bdlist)
+
+bdvar.value
+
+
+
+Accumilulator variable used for sum or counter shared
+
+accvar=spark.sparkContext.accumlator(o)
+
+accvar.value
+
+
+
+
+
+Spark Sql
+
+calatyst optimizer 
+
+Tungsten execution engine
+
+explain() to generate explain plan
+
+
+
+—————————
+
+Dataframe
+
+spark.sparkContext.version
+
+df=spark.range(1,20,2)
+
+df.show()
+
+
+
+create data frame from python list
+
+lst=[(‘shirish’,40),(‘rashmi’,40)]
+
+df=spark.createDataFrame(data=lst,schema=(‘Name string, Age int’))
+
+df.show()
+
+df.printSchema()
+
+
+
+create dataframe from rdd
+
+lst=[(‘shirish’,40),(‘rashmi’,40)]
+
+rdd=sc.parallelize(lst)
+
+df=spark.createDataFrame(data=rdd)
+
+
+
+create dataframe from rdd using row
+
+import Row from pyspark.sql
+
+rdd=sc.parallelize([Row(Name=‘Shirish’, Age=40), Row(Name=‘Rashmi’,Age=40)])
+
+
+
+create dataframe from pandas
+
+import pandas as pd
+
+pddata=pd.DataFrame[[(‘shirish’,40),(‘rashmi’,40)]]
+
+df=spark.createDataFRame(data=pddata)
+
+
+
+spark.sql
+
+createOrReplaceTempView
+
+createOrReplaceGlobalTempView
+
+
+
+spark.table convert table into dataframe
+
+
+
+UDF
+
+import udf from pyspark.sql.functions
+
+@udf
+
+
+
+spark.udf.register
+
+
+
+load file in dataframe
+
+spark.read.load
+
+ORC parquet are columnar file good if we read subset of column
+
+csv avro json are row based
+
+avro is third party format and not directly supported in spark
+
+
+
+read hive and jdbc
+
+spark.read.format(‘jdbc’
+
+
+
+catalog api to access meradata
+
+
+
+Dataframe
+
+——-
+
+from pyspark.sql.types import * for datatypes
+
+Map ,Array, struct are complex datatype
+
+
+
+Define dataframe via struct which is best
+
+if we have use NaN we need to convet it to double
+
+
+
+Row class to create row
+
+Row method count index asdict()
+
+
+
+Columns
+
+select
+
+col(“*”)
+
+alias
+
+distinct
+
+cast 
+
+astype
+
+————
+
+orderBy
+
+————
+
+where between
+
+contains
+
+startwith
+
+endswith
+
+like
+
+rlike
+
+isin
+
+eqNullSafe
+
+isNull
+
+isNotNull
+
+substr
+
+getField() used in struct
+
+when otherwise - similar to case statement
+
+
+
+select
+
+selectExpr
+
+alias
+
+withColum
+
+withColumnRename
+
+drop
+
+dropDuplicates
+
+
+
+filter or where
+
+sort or orderby
+
+sortWithinPartition
+
+
+
+set - union unionall ujiknByname
+
+intersect intersectall
+
+exceptAll thisnis minus
+
+
+
+Joins
+
+Inner join or join
+
+leftouterjoin
+
+rightouterjoin
+
+fullouterjoin
+
+crossjoin
+
+leftanti
+
+leftsemi similar to innter get data from left df
+
+self join concept
+
+to select from alias table select col column
+
+
+
+Aggr— summary function
+
+avg max min
+
+sum sumDistinct
+
+count countDistinct
+
+first last
+
+collect_set collect_list
+
+
+
+
+
+groupBy -agg to apply multiplagg
+
+pivot - rows to column
+
+stack
+
+
+
+windows - create spec and then use it
+
+row_number
+
+rank
+
+dense_rank
+
+ntile
+
+percent_rank
+
+lag
+
+lead
+
+rangebetween
+
+rowsbetween
+
+
+
+Sampling
+
+sample
+
+sampleBy
+
+
+
+
+
+other
+
+first 
+
+last 
+
+greatest
+
+least
+
+skewness
+
+collect_list
+
+collect_set
+
+
+
+Builtin function
+
+monotocally_increasing_id
+
+lit for staric value
+
+expr for sql function
+
+spark_partition_id
+
+rand(seed)
+
+
+
+
+
+encryption - sha1 sha2 hash
+
+
+
+string function
+
+split
+
+lower upper initcap
+
+ltrim rtrim trim
+
+lpad rpad
+
+reverse
+
+repeat
+
+hex
+
+concat concat_ws
+
+substring substring_index
+
+instr
+
+locate
+
+translate
+
+overlay
+
+
+
+regexp_extract
+
+regexp_replace
+
+rlike
+
+
+
+current_date
+
+current_timestamp
+
+next_day
+
+last_day
+
+dayofweek
+
+second
+
+months_between
+
+date_add
+
+date_sub
+
+add_months
+
+datediff
+
+date_trunc
+
+date_format
+
+unix_timestamp
+
+to_timestamp
+
+from_unixtime
+
+from_utc_timestamp
+
+
+
+isnull
+
+isnan
+
+nanvl
+
+coalesce
+
+
+
+collection
+
+size
+
+element_at
+
+struct
+
+array
+
+array_max array_min array_distinct array_repeat
+
+slice
+
+array_position
+
+array_remove
+
+array_sort
+
+array_contains
+
+array_union
+
+array_except
+
+array_intersect
+
+array_join
+
+arrays_zip
+
+arrays_overlap
+
+shuffle
+
+
+
+create_map
+
+map_from_entries
+
+map_from_arrays
+
+map_keys()
+
+map_values
+
+map_concat
+
+sequence
+
+
+
+Na functions
+
+drop
+
+fill
+
+replace
+
+
+
+Math function
+
+abs exp factorial sqrt cbrt pow
+
+floor ceil
+
+round
+
+trunc
+
+signum
+
+
+
+
+
+explode - array map convert to row
+
+explode_outer consider null
+
+Posexplode
+
+Posexplode_outer
+
+flatten- flatten out nsmested array
+
+cant use multiple explode together
+
+
+
+formatting
+
+format_number
+
+format_string
+
+
+
+Json
+
+from_json
+
+to_json
+
+json_tuple
+
+schema_of_json
+
+get_json_object
+
+
+
+repartition
+
+coalesce
+
+
+
+
+
+extraction
+
+write.csv
+
+text
+
+parquet
+
+orc
+
+json
+
+avro
+
+sequence
+
+hive -insertinto & saveasTable
+
+jdbc
+
+
+
+
+
+Performance
+
+Join strategies
+
+  BROADCAST
+
+  SHUFFLE_HASH
+
+  SORT_MERGE
+
+  SHUFFLE_REPLICATE_NL nested loop for catesian
+
+Broadcast nested loop join
+
+
+
+Driver Configuration
+
+—driver- memory
+
+—driver-cores for oarallelism
+
+driver.maxresult.size
+
+spark.driver.memoryOverhead
+
+
+
+
+
+executor memory
+
+executor cores
+
+no of executor
+
+executor
+
+memory overheadhead
